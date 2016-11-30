@@ -1,31 +1,29 @@
 #!/usr/bin/env python
-"""Authors: Andrew Wentz, Adrian Jania, Emmie Grimmie
+"""Authors: Andrew Wentz, Adrian Jania, Emily McMinn
 CSCE100 Final Project
 """
 import csv
-#open original data file
-file = open("reports.csv")
+
+#open data file
+file = open("alcoholfile.csv")
 csv_file = csv.reader(file)
-#open edited data file
-newfile = open("alcohols.csv")
-csv_newfile = csv.reader(newfile)
 
-dictionary = {
-    
-}
+dictionary = {}
+#sorts file into dictionary
+for row in csv_file:
+    key = row[0]
+    if key in dictionary:
+        pass
+    dictionary[key] = [row[1], row[2]]
 
-#location = input("Enter your current location: ")
-
-#function for removing duplicate locations
-"""def locationparse():
-    loclist = []
-    count = 0
-    for row in csv_file:
-        loclist.append(row[7])
-    print(list(set(sorted(loclist))))"""
-    
-    #function for returning whole rows of info
-    """if location in row:
-        count = count+1
-        print("{}, {}, {}".format(row[1], row[2], row[10]))
-print(count)"""
+#search dictionary for location and time input
+print("UNL Alcohol Violations Database - Fall 2016")
+location = input("Enter campus building closest to your location: ")
+time = input("Enter your current time (XX:XX): ")
+time = time.replace(":", "")
+time = int(time)
+x = dictionary[location]
+if 500 <= time <= 2100:
+    print("Number of daytime violations this semester at {}: {}".format(location, x[0]))
+else:
+    print("Number of nighttime violations this semester at {}: {}".format(location, x[1]))
